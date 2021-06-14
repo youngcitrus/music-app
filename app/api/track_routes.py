@@ -7,19 +7,19 @@ from ..models import db, Track
 track_routes = Blueprint("tracks", __name__)
 
 @track_routes.route("/")
-@login_required
 def index():
-    print("current user id", current_user.get_id())
     tracks = Track.query.all()
     return {"tracks": [track.to_dict() for track in tracks]}
 
 
 @track_routes.route("/new")
+@login_required
 def new_track():
     form = NewTrackForm()
     return render_template("new_track_form.html", form=form)
 
 @track_routes.route("/new", methods=["POST"])
+@login_required
 def post_track():
     form = NewTrackForm()
     print(form.data)
