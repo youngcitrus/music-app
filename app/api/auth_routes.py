@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, render_template, jsonify, session, request
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
@@ -27,6 +27,19 @@ def authenticate():
         return current_user.to_dict()
     return {'errors': ['Unauthorized']}
 
+
+# ADD LOGIN ROUTE TO RENDER FORM
+@auth_routes.route('/login')
+def login_form():
+    if current_user.is_authenticated:
+        return "Logged in already"
+    form = LoginForm()
+    return render_template("login_form.html", form=form)
+
+@auth_routes.route('/signup')
+def signup_form():
+    form = SignUpForm()
+    return render_template("signup_form.html", form=form)
 
 @auth_routes.route('/login', methods=['POST'])
 def login():

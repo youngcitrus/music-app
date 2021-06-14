@@ -1,0 +1,17 @@
+<html>
+
+<head>
+    
+</head>
+
+<body>
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        <p>{{ form.artist_name.label }} {{ form.artist_name }} </p>
+        <p>{{ form.track_name.label }} {{ form.track_name }} </p>
+        <p> {{ form.track_url.label }} {{ form.track_url }} </p>
+        <p> {{ form.submit }} </p>
+    </form>
+</body>
+
+</html>

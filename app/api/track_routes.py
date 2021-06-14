@@ -1,23 +1,25 @@
 from flask import Blueprint, render_template, redirect
+from flask_login import current_user, login_required
 from ..forms.new_track_form import NewTrackForm
 from ..models import db, Track
 
 
 track_routes = Blueprint("tracks", __name__)
 
-
-@bp.route("/")
+@track_routes.route("/")
+@login_required
 def index():
+    print("current user id", current_user.get_id())
     tracks = Track.query.all()
     return {"tracks": [track.to_dict() for track in tracks]}
 
 
-@bp.route("/new")
+@track_routes.route("/new")
 def new_track():
     form = NewTrackForm()
     return render_template("new_track_form.html", form=form)
 
-@bp.route("/new", methods=["POST"])
+@track_routes.route("/new", methods=["POST"])
 def post_track():
     form = NewTrackForm()
     print(form.data)
@@ -32,7 +34,7 @@ def post_track():
     return redirect('/tracks')
 
 
-@bp.route('/<int:id>')
+@track_routes.route('/<int:id>')
 def track(id):
     track = Track.query.get(id)
     return track.to_dict()

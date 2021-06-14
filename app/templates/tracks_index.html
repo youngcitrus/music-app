@@ -1,0 +1,21 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>All Tracks</h1>
+    {% for track in tracks %}
+        <div>
+            <h2> {{ track.artist }} </h2>
+            <h3> {{ track.name }} </h3>
+            <audio controls>
+                <source src={{ track.url }}  type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    {% endfor %}
+</body>
+
+</html>
