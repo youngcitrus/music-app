@@ -36,10 +36,14 @@ def login_form():
     form = LoginForm()
     return render_template("login_form.html", form=form)
 
+
 @auth_routes.route('/signup')
 def signup_form():
+    if current_user.is_authenticated:
+        return "Logged in already"
     form = SignUpForm()
     return render_template("signup_form.html", form=form)
+
 
 @auth_routes.route('/login', methods=['POST'])
 def login():
