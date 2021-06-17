@@ -9,7 +9,7 @@ track_routes = Blueprint("tracks", __name__)
 
 @track_routes.route("/")
 def index():
-    tracks = Track.query.all()
+    tracks = Track.query.join(Track.artist).all()
     return {"tracks": [track.to_dict() for track in tracks]}
 
 

@@ -12,12 +12,14 @@ class Track(db.Model):
                           nullable=False)
 
     artist = db.relationship("User", back_populates="tracks")
-    track_genres = db.relationship("TrackGenre", back_populates="track")
+    track_genres = db.relationship("TrackGenre", back_populates="track")   
+    genres = db.relationship("Genre", secondary="track_genres", back_populates="tracks")
 
     def to_dict(self):
         return {
                     "id": self.id,
                     "name": self.name,
                     "artist_id": self.artist_id,
-                    "url": self.url,
+                    "artist": self.artist.username,
+                    "url": self.url
                 }
