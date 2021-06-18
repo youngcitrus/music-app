@@ -8,7 +8,7 @@ class Genre(db.Model):
 
     track_genres = db.relationship("TrackGenre", back_populates="genre")
     tracks = db.relationship("Track", secondary="track_genres", back_populates="genres")
-
+    
     def to_dict(self):
         return {
                 "id": self.id,

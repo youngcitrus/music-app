@@ -23,5 +23,5 @@ def seed_genres():
 
 
 def undo_genres():
-    db.session.execute('TRUNCATE genres CASCADE;')
+    db.session.execute('TRUNCATE genres RESTART IDENTITY CASCADE;')
     db.session.commit()

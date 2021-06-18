@@ -1,20 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { login } from "../../services/auth";
+import { login } from "../../store/session";
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
-  
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const user = await login(email, password);
-    if (!user.errors) {
-      setAuthenticated(true);
-    } else {
-      setErrors(user.errors);
+    const data = await dispatch(login(email, password));
+    if (data.errors) {
+      setErrors(data.errors);
     }
   };
 
@@ -26,15 +26,15 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     setPassword(e.target.value);
   };
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to="/" />;
   }
 
   return (
     <form onSubmit={onLogin}>
       <div>
-        {errors.map((error) => (
-          <div>{error}</div>
+        {errors.map((error, i) => (
+          <div key={i}>{error}</div>
         ))}
       </div>
       <div>

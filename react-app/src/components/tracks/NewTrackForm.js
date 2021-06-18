@@ -1,52 +1,58 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { login } from "../../services/auth";
+import { useHistory } from "react-router-dom";
+import { postTrack } from "../../services/tracks";
 
 const NewTrackForm = () => {
   
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [url, setUrl] = useState("");
+  const history = useHistory();
 
-  const postTrack = () => {
-
+  const onPost = async (e) => {
+    e.preventDefault();
+    const track = await postTrack(name, url);
+    if (!track.errors) {
+      history.push('/tracks')
+    } else {
+      setErrors(track.errors);
+    }
   }
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
+  const updateName = (e) => {
+    setName(e.target.value);
   };
 
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
+  const updateUrl = (e) => {
+    setUrl(e.target.value);
   };
 
   return (
-    <form onSubmit={postTrack}>
+    <form onSubmit={onPost}>
       <div>
-        {errors.map((error) => (
-          <div>{error}</div>
+        {errors.map((error,i) => (
+          <div key={i}>{error}</div>
         ))}
       </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="track_name">Track Name</label>
         <input
-          name="email"
+          name="track_name"
           type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
+          placeholder="Track Name"
+          value={name}
+          onChange={updateName}
         />
       </div>
       <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="url">Track Url</label>
         <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
+          name="track_url"
+          placeholder="Track Url"
+          value={url}
+          onChange={updateUrl}
         />
-        <button type="submit">Login</button>
+        <button type="submit">Create New Track</button>
       </div>
     </form>
   );
