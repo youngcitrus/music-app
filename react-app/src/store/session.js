@@ -54,7 +54,7 @@ export const logout = () => async (dispatch) => {
             "Content-Type": "application/json",
         }
     });
-    const data = await response.json();
+    await response.json();
     dispatch(removeUser())
 };
 
@@ -73,9 +73,10 @@ export const signUp = (username, email, password) => async (dispatch) => {
     });
     const data = await response.json();
     if (data.errors) {
-        return;
+        return data;
     }
     dispatch(setUser);
+    return {};
 }
 
 
