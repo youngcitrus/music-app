@@ -26,7 +26,7 @@ const NewTrackForm = () => {
     e.preventDefault();
     const track = await postTrack(name, url, genreId);
     if (!track.errors) {
-      history.push('/tracks')
+      history.push(`/tracks/${track.id}`)
     } else {
       setErrors(track.errors);
     }

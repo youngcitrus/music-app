@@ -12,8 +12,9 @@ function TrackShow() {
             return
         }
         (async () => {
-            const response = await fetch(`/api/tracks/${userId}`);
+            const response = await fetch(`/api/tracks/${trackId}`);
             const track = await response.json();
+            console.log("TRACK", track)
             setTrack(track);
         })();
     }, [trackId]);
@@ -25,13 +26,13 @@ function TrackShow() {
     return (
         <ul>
             <li>
-                <strong>Track Id</strong> {trackId}
+                <strong>Track Id</strong> {track.id}
             </li>
             <li>
-                <strong>Track Name</strong> {track.track_name}
+                <strong>Track Name</strong> {track.name}
             </li>
             <li>
-                <strong>Track Url</strong> {track.track_url}
+                <strong>Track Url</strong> {track.url}
             </li>
         </ul>
     );

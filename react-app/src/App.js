@@ -8,7 +8,8 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import NewTrackForm from "./components/tracks/NewTrackForm";
-import TracksList from "./components/TracksList";
+import TracksList from "./components/tracks/TracksList";
+import TrackShow from "./components/tracks/TrackShow";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -46,8 +47,11 @@ function App() {
         <Route path="/tracks" exact={true}>
           <TracksList/>
         </Route>
+        <Route path="/tracks/:trackId" exact={true}>
+          <TrackShow />
+        </Route>
         <ProtectedRoute path="/" exact={true}>
-          <UsersList />
+          <h1>Welcome, to your homepage!</h1>
         </ProtectedRoute>
         <ProtectedRoute path="/tracks/new" exact={true}>
           <NewTrackForm />
