@@ -80,9 +80,9 @@ export const signUp = (username, email, password) => async (dispatch) => {
 }
 
 
-const initialState = {}
+const initialState = {};
 
-export default function reducter(state=initialState, action) {
+export default function reducer(state=initialState, action) {
     switch (action.type) {
         case SET_USER:
             return { user: action.payload }

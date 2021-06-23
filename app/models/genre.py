@@ -12,6 +12,12 @@ class Genre(db.Model):
     def to_dict(self):
         return {
                 "id": self.id,
-                "name": self.name,
-                "tracks": [track.to_dict() for track in self.tracks]
+                "name": self.name
+        }
+
+    def to_dict_with_tracks(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "tracks": [track.to_dict() for track in self.tracks]
         }
