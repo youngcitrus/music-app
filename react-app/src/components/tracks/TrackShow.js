@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Track from "./Track";
 
 function TrackShow() {
@@ -7,15 +7,16 @@ function TrackShow() {
     // Notice we use useParams here instead of getting the params
     // From props. USE props instead
     const { trackId } = useParams();
+    const history = useHistory();
     
     useEffect(() => {
-        if (!trackId) {
-            return
-        }
         (async () => {
             const response = await fetch(`/api/tracks/${trackId}`);
             const track = await response.json();
-            console.log("TRACK", track)
+            if (track.errors) {
+                history.push('/tracks')
+                return;
+            }
             setTrack(track);
         })();
     }, [trackId]);

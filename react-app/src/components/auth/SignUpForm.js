@@ -5,7 +5,7 @@ import { signUp } from '../../store/session';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
-  const user = useSelector();
+  const user = useSelector(state => state.session.user);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

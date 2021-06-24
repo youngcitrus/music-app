@@ -23,6 +23,15 @@ const addTrack = (track) => ({
     payload: track
 });
 
+export const loadAllTracks = () => async (dispatch) => {
+    const response = await fetch('/api/tracks');
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setAllTracks(data));
+        return data;
+    }
+}
+
 export const postTrack = (track_name, track_url) => async (dispatch) => {
     const response = await fetch('/api/tracks/new', {
         method: 'POST',
@@ -43,17 +52,16 @@ const initialState = {}
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_ALL_TRACKS:
-            return { tracks: action.payload }
+            return action.payload
         case SET_USER_TRACKS:
-            return { tracks: action.payload }
+            return action.payload
         case SET_GENRE_TRACKS:
-            return { tracks: action.payload }
+            return action.payload
         case ADD_TRACK:
             let newState = Object.assign({}, state);
-            newState[tracks].push(action.payload);
+            newState["tracks"].push(action.payload);
             return newState;
         default:
             return state;
-
     }
 }

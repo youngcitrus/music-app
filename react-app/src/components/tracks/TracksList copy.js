@@ -18,7 +18,7 @@ function TracksList() {
 
     const trackComponents = Object.values(tracks).map((track) => {
         return (
-            <Track key={track.id} track={track} />
+            <Track key={track.id} track={track}/>
         );
     });
 

@@ -14,4 +14,7 @@ def users():
 @user_routes.route('/<int:id>')
 def user(id):
     user = User.query.get(id)
-    return user.to_dict()
+    if user is not None:
+        return user.to_dict()
+    else:
+        return {"errors": "User not found"}

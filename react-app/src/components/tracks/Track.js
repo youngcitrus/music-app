@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import ReactAudioPlayer from 'react-audio-player';
+import { NavLink } from "react-router-dom";
 
 function Track( {track} ){
+    console.log(track)
     return (
         <div>
 
-            <h2> { track.artist } </h2>
-            <h3> { track.name } </h3>
+            <NavLink to={`/users/${track.artist_id}`}>{ track.artist } </NavLink><br/>
+            <NavLink to={`/tracks/${track.id}`}> { track.name } </NavLink><br/>
             <audio
                 src={track.url}
                 controls

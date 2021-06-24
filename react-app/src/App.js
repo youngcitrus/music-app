@@ -10,6 +10,8 @@ import User from "./components/User";
 import NewTrackForm from "./components/tracks/NewTrackForm";
 import TracksList from "./components/tracks/TracksList";
 import TrackShow from "./components/tracks/TrackShow";
+import GenreShow from "./components/genres/GenreShow";
+import Home from "./components/Home";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -53,8 +55,11 @@ function App() {
         <Route path="/tracks/:trackId" exact={true}>
           <TrackShow />
         </Route>
+        <Route path="/genres/:genreId" exact={true}>
+          <GenreShow />
+        </Route>
         <ProtectedRoute path="/" exact={true}>
-          <h1>Welcome, to your homepage!</h1>
+          <Home />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

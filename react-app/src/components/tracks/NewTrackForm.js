@@ -14,13 +14,15 @@ const NewTrackForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const genres = useSelector(state => state.genres);
+
   useEffect(() => {
+    if (Object.keys(genres).length) return;
     (async () => {
       await dispatch(loadAllGenres());
     })();
   }, []);
 
-  const genres = useSelector(state => state.genres);
 
   const onPost = async (e) => {
     e.preventDefault();
@@ -45,15 +47,15 @@ const NewTrackForm = () => {
   };
 
   let genreOptions = null;
-  if (genres.all_genres) {
-    genreOptions = genres.all_genres.map((genre) => {
+  if (Object.keys(genres).length) {
+    genreOptions = Object.values(genres).map((genre) => {
       return (
         <option key={genre.id} value={genre.id}> {genre.name} </option>
       )
     });
     
   }
-
+  
   return (
     <form onSubmit={onPost}>
       <div>

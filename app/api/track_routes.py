@@ -20,8 +20,10 @@ def validation_errors_to_error_messages(validation_errors):
 
 @track_routes.route("/")
 def index():
-    tracks = Track.query.join(Track.artist).all()
-    return {"tracks": [track.to_dict() for track in tracks]}
+    tracks = {}
+    for track in Track.query.all():
+        tracks[track.id] = track.to_dict()
+    return tracks
 
 
 @track_routes.route("/new")
@@ -60,4 +62,7 @@ def post_track():
 @track_routes.route('/<int:id>')
 def track(id):
     track = Track.query.get(id)
-    return track.to_dict()
+    if track is not None:
+        return track.to_dict()
+    else:
+        return {"errors": "Track not found"}
