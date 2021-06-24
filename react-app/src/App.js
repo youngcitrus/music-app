@@ -47,14 +47,14 @@ function App() {
         <Route path="/tracks" exact={true}>
           <TracksList/>
         </Route>
+        <ProtectedRoute path="/tracks/new" exact={true}>
+          <NewTrackForm />
+        </ProtectedRoute>
         <Route path="/tracks/:trackId" exact={true}>
           <TrackShow />
         </Route>
         <ProtectedRoute path="/" exact={true}>
           <h1>Welcome, to your homepage!</h1>
-        </ProtectedRoute>
-        <ProtectedRoute path="/tracks/new" exact={true}>
-          <NewTrackForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
