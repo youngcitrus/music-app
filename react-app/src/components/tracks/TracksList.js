@@ -26,7 +26,6 @@ function TracksList() {
         <>
             <h1>Tracks List: </h1>
             <ul>{trackComponents}</ul>
-            {console.log("YUP")}
         </>
     );
 }
