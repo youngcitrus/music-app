@@ -6,6 +6,8 @@ import { loadAllGenres } from "../../store/genres";
 
 const NewTrackForm = () => {
   
+  const genres = useSelector(state => state.genres);
+
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
@@ -14,7 +16,7 @@ const NewTrackForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const genres = useSelector(state => state.genres);
+  
 
   useEffect(() => {
     if (Object.keys(genres).length) return;
@@ -53,11 +55,12 @@ const NewTrackForm = () => {
         <option key={genre.id} value={genre.id}> {genre.name} </option>
       )
     });
-    
+    if (!genreId) setGenreId(Object.keys(genres)[0]);
   }
   
   return (
     <form onSubmit={onPost}>
+      {console.log("RENDERED")}
       <div>
         {errors.map((error,i) => (
           <div key={i}>{error}</div>

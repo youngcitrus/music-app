@@ -10,7 +10,6 @@ function TracksList() {
 
     useEffect(() => {
         async function fetchData() {
-            if (Object.keys(tracks).length) return;
             await dispatch(loadAllTracks());
         }
         fetchData();
