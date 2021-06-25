@@ -44,7 +44,10 @@ export const postTrack = (track_name, track_url) => async (dispatch) => {
             genre_id: 17
         })
     });
-    return await response.json();
+    const data = await response.json();
+    console.log("data",data);
+    dispatch(addTrack(data))
+    return data;
 }
 
 const initialState = {}
@@ -59,7 +62,7 @@ export default function reducer(state = initialState, action) {
             return action.payload
         case ADD_TRACK:
             let newState = Object.assign({}, state);
-            newState["tracks"].push(action.payload);
+            newState[action.payload.id] = action.payload;
             return newState;
         default:
             return state;
