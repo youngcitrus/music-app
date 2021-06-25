@@ -11,12 +11,9 @@ const NewTrackForm = () => {
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
-  const [genreId, setGenreId] = useState("");
-
+  const [genreId, setGenreId] = useState(Object.keys(genres).length ? Object.keys(genres)[0] : "");
   const history = useHistory();
   const dispatch = useDispatch();
-
-  
 
   useEffect(() => {
     if (Object.keys(genres).length) return;
@@ -24,6 +21,12 @@ const NewTrackForm = () => {
       await dispatch(loadAllGenres());
     })();
   }, []);
+
+  // useEffect(() => {
+  //   if (Object.keys(genres).length !== 0) {
+  //     setGenreId(Object.keys(genres)[0]);
+  //   }
+  // }, [genres])
 
 
   const onPost = async (e) => {
@@ -47,20 +50,9 @@ const NewTrackForm = () => {
   const updateGenre = (e) => {
     setGenreId(e.target.value);
   };
-
-  let genreOptions = null;
-  if (Object.keys(genres).length) {
-    genreOptions = Object.values(genres).map((genre) => {
-      return (
-        <option key={genre.id} value={genre.id}> {genre.name} </option>
-      )
-    });
-    if (!genreId) setGenreId(Object.keys(genres)[0]);
-  }
   
   return (
     <form onSubmit={onPost}>
-      {console.log("RENDERED")}
       <div>
         {errors.map((error,i) => (
           <div key={i}>{error}</div>
@@ -89,10 +81,17 @@ const NewTrackForm = () => {
         <label htmlFor="genre_id">Genre</label>
         <select
           name="genre_id"
-          value={genreId}
           onChange={updateGenre}
+          defaultValue=""
         >
-          {genreOptions}
+          <option disabled value=""> -- select -- </option>
+          {
+            Object.values(genres).map((genre) => {
+              return (
+                <option key={genre.id} value={genre.id}> {genre.name} </option>
+              )
+            })
+          }
         </select>
         <button type="submit">Create New Track</button>
       </div>

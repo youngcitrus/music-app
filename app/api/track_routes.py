@@ -14,7 +14,12 @@ def validation_errors_to_error_messages(validation_errors):
     errorMessages = []
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f"{field} : {error}")
+            if field == "track_name":
+                errorMessages.append(f"Track Name : {error}")
+            elif field == "track_url":
+                errorMessages.append(f"Track URL : {error}")
+            elif field == "genre_id" and "coerce" not in error:
+                errorMessages.append("Genre: Please select a genre")
     return errorMessages
 
 
@@ -58,6 +63,8 @@ def post_track():
         db.session.add(new_track)
         db.session.commit()
         return new_track.to_dict()
+    errors = validation_errors_to_error_messages(form.errors)
+    print(errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
