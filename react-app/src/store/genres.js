@@ -14,9 +14,6 @@ export const loadAllGenres = () => async (dispatch) => {
     }
 }
 
-export const loadGenreTracks = async (dispatch) => {
-
-} 
 
 const initialState = {};
 
