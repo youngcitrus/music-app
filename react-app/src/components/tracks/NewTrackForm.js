@@ -14,7 +14,7 @@ const NewTrackForm = () => {
   const [genreId, setGenreId] = useState(Object.keys(genres).length ? Object.keys(genres)[0] : "");
   const history = useHistory();
   const dispatch = useDispatch();
-
+  console.log("genreID", genreId)
   useEffect(() => {
     if (Object.keys(genres).length) return;
     (async () => {

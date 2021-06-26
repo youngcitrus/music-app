@@ -32,7 +32,7 @@ export const loadAllTracks = () => async (dispatch) => {
     }
 }
 
-export const postTrack = (track_name, track_url) => async (dispatch) => {
+export const postTrack = (track_name, track_url, genre_id) => async (dispatch) => {
     const response = await fetch('/api/tracks/new', {
         method: 'POST',
         headers: {
@@ -41,7 +41,7 @@ export const postTrack = (track_name, track_url) => async (dispatch) => {
         body: JSON.stringify({
             track_name,
             track_url,
-            genre_id: 17
+            genre_id
         })
     });
     const data = await response.json();

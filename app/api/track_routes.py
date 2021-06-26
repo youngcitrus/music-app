@@ -46,7 +46,9 @@ def post_track():
     
     form.genre_id.choices = [(genre.id, genre.name)
                              for genre in Genre.query.all()]
+    print("------------------------- genreId ---------------------")
     print(form.data["genre_id"])
+    print(form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
     
     if form.validate_on_submit():
