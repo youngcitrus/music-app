@@ -42,17 +42,11 @@ def new_track():
 @track_routes.route("/new", methods=["POST"])
 @login_required
 def post_track():
-    form = NewTrackForm()
-    
+    form = NewTrackForm()  
     form.genre_id.choices = [(genre.id, genre.name)
                              for genre in Genre.query.all()]
-    print("------------------------- genreId ---------------------")
-    print(form.data["genre_id"])
-    print(form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
-    
     if form.validate_on_submit():
-        print("we made it here!")
         new_track = Track(
             name=form.data["track_name"],
             url=form.data["track_url"],
