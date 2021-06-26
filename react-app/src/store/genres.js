@@ -14,6 +14,10 @@ export const loadAllGenres = () => async (dispatch) => {
     }
 }
 
+export const loadGenreTracks = async (dispatch) => {
+
+} 
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {
