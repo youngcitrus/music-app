@@ -15,18 +15,6 @@ const NewTrackForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   console.log("genreID", genreId)
-  useEffect(() => {
-    // if (Object.keys(genres).length) return;
-    (async () => {
-      await dispatch(loadAllGenres());
-    })();
-  }, []);
-
-  // useEffect(() => {
-  //   if (Object.keys(genres).length !== 0) {
-  //     setGenreId(Object.keys(genres)[0]);
-  //   }
-  // }, [genres])
 
 
   const onPost = async (e) => {

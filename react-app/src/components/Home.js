@@ -4,15 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadAllGenres } from "../store/genres";
 
 function Home() {
-    const dispatch = useDispatch();
     const genres = useSelector(state => state.genres);
-
-    useEffect(() => {
-        // if (Object.keys(genres).length) return; 
-        (async () => {
-            await dispatch(loadAllGenres());
-        })();
-    }, []);
 
     return (
         <div>

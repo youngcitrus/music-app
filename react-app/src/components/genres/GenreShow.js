@@ -21,10 +21,9 @@ function GenreShow() {
 
     return (
         <div>
-            {console.log("GENRE", genre)}
             {genre.tracks.map(track=> {
                 return (
-                    <h1>{track.name}</h1>
+                    <Track key={track.id} track={track}/>
                 )
             })}
         </div>
