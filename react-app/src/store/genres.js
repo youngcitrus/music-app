@@ -6,11 +6,25 @@ const setAllGenres = (genres) => ({
     payload: genres
 });
 
+const setGenreTracks = (genre) => ({
+    type: SET_GENRE_TRACKS,
+    payload: genre
+});
+
 export const loadAllGenres = () => async (dispatch) => {
     const response = await fetch('/api/genres');
     if (response.ok) {
         const data = await response.json();
         dispatch(setAllGenres(data))
+    }
+}
+
+export const loadGenreTracks = (genreId) => async (dispatch) => {
+    const response = await fetch(`/api/genres/${genreId}`);
+    if (response.ok) {
+        const data = await response.json();
+        console.log("GENRES------", data)
+        dispatch(setGenreTracks(data))
     }
 }
 
@@ -21,6 +35,10 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_ALL_GENRES:
             return action.payload;
+        case SET_GENRE_TRACKS:
+            const newState = Object.assign({}, state);
+            newState[action.payload.id] = action.payload;
+            return newState;
         default:
             return state;
     }

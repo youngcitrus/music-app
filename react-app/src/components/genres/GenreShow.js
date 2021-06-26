@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Track from "../tracks/Track";
+import { loadGenreTracks } from "../../store/genres";
 
 function GenreShow() {
-    const [genre, setGenre] = useState({});
     // Notice we use useParams here instead of getting the params
     // From props. USE props instead
     const { genreId } = useParams();
+    const dispatch = useDispatch();
+    const genre = useSelector(state => state.genres[genreId]);
 
     useEffect(() => {
         (async () => {
-            const response = await fetch(`/api/genres/${genreId}`);
-            const genre = await response.json();
-            console.log("Genre", genre)
-            setGenre(genre);
+            await dispatch(loadGenreTracks(genreId));
         })();
     }, [genreId]);
-
-    if (!genre) {
-        return null;
-    }
+    
+    if (!genre || !genre.tracks) return null;
 
     return (
-        <h1>Track here</h1>
+        <div>
+            {console.log("GENRE", genre)}
+            {genre.tracks.map(track=> {
+                return (
+                    <h1>{track.name}</h1>
+                )
+            })}
+        </div>
     );
 }
 export default GenreShow;

@@ -8,7 +8,7 @@ function Home() {
     const genres = useSelector(state => state.genres);
 
     useEffect(() => {
-        if (Object.keys(genres).length) return; 
+        // if (Object.keys(genres).length) return; 
         (async () => {
             await dispatch(loadAllGenres());
         })();

@@ -16,7 +16,7 @@ const NewTrackForm = () => {
   const dispatch = useDispatch();
   console.log("genreID", genreId)
   useEffect(() => {
-    if (Object.keys(genres).length) return;
+    // if (Object.keys(genres).length) return;
     (async () => {
       await dispatch(loadAllGenres());
     })();
