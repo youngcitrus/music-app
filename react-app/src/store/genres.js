@@ -23,7 +23,6 @@ export const loadGenreTracks = (genreId) => async (dispatch) => {
     const response = await fetch(`/api/genres/${genreId}`);
     if (response.ok) {
         const data = await response.json();
-        console.log("GENRES------", data)
         dispatch(setGenreTracks(data))
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Track from "./Track";
@@ -9,11 +9,8 @@ function TracksList() {
     const tracks = useSelector(state => state.tracks);
 
     useEffect(() => {
-        async function fetchData() {
-            await dispatch(loadAllTracks());
-        }
-        fetchData();
-    }, []);
+        dispatch(loadAllTracks());
+    }, [dispatch]);
 
     const trackComponents = Object.values(tracks).map((track) => {
         return (

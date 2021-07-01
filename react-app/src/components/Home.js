@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loadAllGenres } from "../store/genres";
+import { useSelector } from "react-redux";
 
 function Home() {
     const genres = useSelector(state => state.genres);

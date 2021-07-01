@@ -13,11 +13,6 @@ const setUserTracks = (tracks) => ({
     payload: tracks
 });
 
-const setGenreTracks = (tracks) => ({
-    type: SET_GENRE_TRACKS,
-    payload: tracks
-});
-
 const addTrack = (track) => ({
     type: ADD_TRACK,
     payload: track
@@ -32,7 +27,7 @@ export const loadAllTracks = () => async (dispatch) => {
     }
 }
 
-export const postTrack = (track_name, track_url, genre_id) => async (dispatch) => {
+export const postTrack = (track_name, track_url, genre_id, history) => async (dispatch) => {
     const response = await fetch('/api/tracks/new', {
         method: 'POST',
         headers: {
@@ -46,7 +41,7 @@ export const postTrack = (track_name, track_url, genre_id) => async (dispatch) =
     });
     const data = await response.json();
     console.log("data",data);
-    dispatch(addTrack(data))
+    dispatch(addTrack(data));
     return data;
 }
 

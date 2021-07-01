@@ -12,9 +12,7 @@ function GenreShow() {
     const genre = useSelector(state => state.genres[genreId]);
 
     useEffect(() => {
-        (async () => {
-            await dispatch(loadGenreTracks(genreId));
-        })();
+        dispatch(loadGenreTracks(genreId));
     }, [genreId]);
     
     if (!genre || !genre.tracks) return null;
