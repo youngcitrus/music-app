@@ -10,9 +10,10 @@ const NewTrackForm = () => {
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
-  const [genreId, setGenreId] = useState(Object.keys(genres).length ? Object.keys(genres)[0] : "");
+  const [genreId, setGenreId] = useState("");
   const history = useHistory();
-
+  
+  console.log(genreId);
 
   const onPost = async (e) => {
     e.preventDefault();
