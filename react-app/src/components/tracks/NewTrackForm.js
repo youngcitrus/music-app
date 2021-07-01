@@ -12,8 +12,6 @@ const NewTrackForm = () => {
   const [url, setUrl] = useState("");
   const [genreId, setGenreId] = useState("");
   const history = useHistory();
-  
-  console.log(genreId);
 
   const onPost = async (e) => {
     e.preventDefault();

@@ -11,10 +11,9 @@ function TrackShow() {
     const history = useHistory();
     const dispatch = useDispatch();
     const track = useSelector(state => state.tracks[trackId])
-    
-    //refactor this useEffect with loadTrack!!
 
     useEffect(() => {
+        if (track) return;
         dispatch(loadTrack(trackId, history));
     }, [trackId]);
 
