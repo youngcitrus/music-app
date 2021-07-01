@@ -27,23 +27,7 @@ export const loadAllTracks = () => async (dispatch) => {
     }
 }
 
-export const postTrack = (track_name, track_url, genre_id, history) => async (dispatch) => {
-    const response = await fetch('/api/tracks/new', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            track_name,
-            track_url,
-            genre_id
-        })
-    });
-    const data = await response.json();
-    console.log("data",data);
-    dispatch(addTrack(data));
-    return data;
-}
+
 
 const initialState = {}
 

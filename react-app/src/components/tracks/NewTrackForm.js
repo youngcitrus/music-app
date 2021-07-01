@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { postTrack } from "../../store/tracks";
-import { loadAllGenres } from "../../store/genres";
+import { postTrack } from "../../services/tracks";
 
 const NewTrackForm = () => {
   
@@ -13,12 +12,11 @@ const NewTrackForm = () => {
   const [url, setUrl] = useState("");
   const [genreId, setGenreId] = useState(Object.keys(genres).length ? Object.keys(genres)[0] : "");
   const history = useHistory();
-  const dispatch = useDispatch();
 
 
   const onPost = async (e) => {
     e.preventDefault();
-    const track = await dispatch(postTrack(name, url, genreId));
+    const track = await postTrack(name, url, genreId);
     if (!track.errors) {
       history.push(`/tracks/${track.id}`)
     } else {

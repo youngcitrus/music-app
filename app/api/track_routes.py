@@ -42,7 +42,7 @@ def new_track():
 @track_routes.route("/new", methods=["POST"])
 @login_required
 def post_track():
-    form = NewTrackForm()  
+    form = NewTrackForm()
     form.genre_id.choices = [(genre.id, genre.name)
                              for genre in Genre.query.all()]
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -60,7 +60,6 @@ def post_track():
         db.session.commit()
         return new_track.to_dict()
     errors = validation_errors_to_error_messages(form.errors)
-    print(errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
