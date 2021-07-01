@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loadTrack } from "../../store/tracks";
 import Track from "./Track";
 
-function TrackShow() {
-    const [track, setTrack] = useState({});
+function TrackShow() { 
     // Notice we use useParams here instead of getting the params
     // From props. USE props instead
     const { trackId } = useParams();
     const history = useHistory();
+    const dispatch = useDispatch();
+    const track = useSelector(state => state.tracks[trackId])
     
+    //refactor this useEffect with loadTrack!!
+
     useEffect(() => {
-        (async () => {
-            const response = await fetch(`/api/tracks/${trackId}`);
-            const track = await response.json();
-            if (track.errors) {
-                history.push('/tracks')
-                return;
-            }
-            setTrack(track);
-        })();
+        dispatch(loadTrack(trackId, history));
     }, [trackId]);
 
     if (!track) {

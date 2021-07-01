@@ -1,7 +1,7 @@
 const SET_ALL_TRACKS = "tracks/SET_ALL_TRACKS";
 const SET_USER_TRACKS = "tracks/SET_USER_TRACKS";
 const SET_GENRE_TRACKS = "tracks/SET_GENRE_TRACKS";
-const ADD_TRACK = "tracks/ADD_TRACK";
+const SET_TRACK = "tracks/SET_TRACK";
 
 const setAllTracks = (tracks) => ({
     type: SET_ALL_TRACKS,
@@ -13,8 +13,8 @@ const setUserTracks = (tracks) => ({
     payload: tracks
 });
 
-const addTrack = (track) => ({
-    type: ADD_TRACK,
+const setTrack = (track) => ({
+    type: SET_TRACK,
     payload: track
 });
 
@@ -27,7 +27,16 @@ export const loadAllTracks = () => async (dispatch) => {
     }
 }
 
-
+export const loadTrack = (trackId, history) => async (dispatch) => {
+    const response = await fetch(`/api/tracks/${trackId}`);
+    const data = await response.json();
+    if (!data.errors) {
+        dispatch(setTrack(data));
+        return data        
+    } else {
+        history.push('/tracks');
+    }
+}
 
 const initialState = {}
 
@@ -39,7 +48,7 @@ export default function reducer(state = initialState, action) {
             return action.payload
         case SET_GENRE_TRACKS:
             return action.payload
-        case ADD_TRACK:
+        case SET_TRACK:
             let newState = Object.assign({}, state);
             newState[action.payload.id] = action.payload;
             return newState;
